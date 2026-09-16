@@ -20,180 +20,26 @@
       --grid-color: rgba(255, 255, 255, 0.03);
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
-    }
-
-    body {
-      background-color: var(--bg);
-      color: var(--fg);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow-x: hidden;
-      padding: 1.5rem;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-image: 
-        linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
-        linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
-      background-size: 40px 40px;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .geo-circle-1 {
-      position: fixed;
-      top: -10vw;
-      right: -10vw;
-      width: 40vw;
-      height: 40vw;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .container {
-      position: relative;
-      z-index: 10;
-      width: 100%;
-      max-width: 500px;
-    }
-
-    .card {
-      background: var(--card-bg);
-      backdrop-filter: blur(var(--glass-blur));
-      -webkit-backdrop-filter: blur(var(--glass-blur));
-      border: 1px solid var(--card-border);
-      border-radius: 16px;
-      padding: 2.5rem;
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
-      text-align: center;
-    }
-
-    .cover-box {
-      width: 100%;
-      height: 240px;
-      border-radius: 12px;
-      overflow: hidden;
-      margin-bottom: 1.5rem;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      position: relative;
-    }
-
-    .cover-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .media-title {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--fg);
-      margin-bottom: 0.5rem;
-      line-height: 1.4;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
-    .media-author {
-      font-size: 0.85rem;
-      color: var(--muted);
-      margin-bottom: 1.5rem;
-    }
-
-    .auto-notice {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.8rem;
-      color: var(--fg);
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 0.5rem 1rem;
-      border-radius: 20px;
-      margin-bottom: 1.5rem;
-    }
-
-    .pulse-dot {
-      width: 6px;
-      height: 6px;
-      background: #22c55e;
-      border-radius: 50%;
-      box-shadow: 0 0 8px #22c55e;
-    }
-
-    .action-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-
-    .btn-dl {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      width: 100%;
-      padding: 0.9rem 1rem;
-      background: var(--accent);
-      color: var(--accent-inverse);
-      border-radius: 8px;
-      font-size: 0.85rem;
-      font-weight: 700;
-      text-decoration: none;
-      transition: all 0.2s ease;
-    }
-
-    .btn-dl:hover {
-      transform: translateY(-2px);
-      background: #e4e4e7;
-    }
-
-    .btn-secondary {
-      background: transparent;
-      color: var(--fg);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-    }
-
-    .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.05);
-    }
-
-    .back-link {
-      display: inline-block;
-      margin-top: 1.5rem;
-      color: var(--muted);
-      font-size: 0.8rem;
-      text-decoration: none;
-      transition: color 0.2s ease;
-    }
-
-    .back-link:hover {
-      color: var(--fg);
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+    body { background-color: var(--bg); color: var(--fg); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 1.5rem; }
+    body::before { content: ""; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-image: linear-gradient(to right, var(--grid-color) 1px, transparent 1px), linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; }
+    .container { position: relative; z-index: 10; width: 100%; max-width: 500px; }
+    .card { background: var(--card-bg); backdrop-filter: blur(var(--glass-blur)); border: 1px solid var(--card-border); border-radius: 16px; padding: 2.5rem; text-align: center; }
+    .cover-box { width: 100%; height: 240px; border-radius: 12px; overflow: hidden; margin-bottom: 1.5rem; border: 1px solid rgba(255,255,255,0.1); }
+    .cover-img { width: 100%; height: 100%; object-fit: cover; }
+    .media-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .media-author { font-size: 0.85rem; color: var(--muted); margin-bottom: 1.5rem; }
+    .auto-notice { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 0.5rem 1rem; border-radius: 20px; margin-bottom: 1.5rem; }
+    .pulse-dot { width: 6px; height: 6px; background: #22c55e; border-radius: 50%; box-shadow: 0 0 8px #22c55e; }
+    .action-group { display: flex; flex-direction: column; gap: 0.75rem; }
+    .btn-dl { display: flex; align-items: center; justify-content: center; width: 100%; padding: 0.9rem 1rem; background: var(--accent); color: var(--accent-inverse); border-radius: 8px; font-size: 0.85rem; font-weight: 700; text-decoration: none; transition: all 0.2s ease; }
+    .btn-dl:hover { transform: translateY(-2px); background: #e4e4e7; }
+    .btn-secondary { background: transparent; color: var(--fg); border: 1px solid rgba(255,255,255,0.15); }
+    .btn-secondary:hover { background: rgba(255,255,255,0.05); }
+    .back-link { display: inline-block; margin-top: 1.5rem; color: var(--muted); font-size: 0.8rem; text-decoration: none; }
   </style>
 </head>
 <body>
-
-  <div class="geo-circle-1"></div>
 
   <div class="container">
     <div class="card" id="app">
@@ -217,13 +63,14 @@
 
       const data = JSON.parse(rawData);
       const videoUrl = data.downloads.no_watermark || data.downloads.watermark;
+      const cleanTitle = sanitizeFilename(data.title || 'tiktok_video');
+
+      // Gunakan endpoint API /api/stream sebagai proxy agar tidak kena blokir CORS/404
+      const proxyVideoUrl = `/api/stream?url=${encodeURIComponent(videoUrl)}&filename=${cleanTitle}.mp4`;
+      const proxyAudioUrl = data.downloads.mp3 ? `/api/stream?url=${encodeURIComponent(data.downloads.mp3)}&filename=${cleanTitle}.mp3` : null;
 
       app.innerHTML = `
-        ${data.cover ? `
-          <div class="cover-box">
-            <img src="${data.cover}" class="cover-img" alt="Cover">
-          </div>
-        ` : ''}
+        ${data.cover ? `<div class="cover-box"><img src="${data.cover}" class="cover-img" alt="Cover"></div>` : ''}
 
         <div class="media-title">${data.title || 'TikTok Media Video'}</div>
         <div class="media-author">@${data.author?.uniqueId || 'creator'}</div>
@@ -234,40 +81,21 @@
         </div>
 
         <div class="action-group">
-          ${videoUrl ? `
-            <a href="${videoUrl}" download="video.mp4" class="btn-dl" target="_blank">
-              UNDUH ULANG VIDEO (NO WM)
-            </a>
-          ` : ''}
-
-          ${data.downloads.mp3 ? `
-            <a href="${data.downloads.mp3}" download="audio.mp3" class="btn-dl btn-secondary" target="_blank">
-              UNDUH AUDIO (MP3)
-            </a>
-          ` : ''}
+          ${videoUrl ? `<a href="${proxyVideoUrl}" class="btn-dl">UNDUH ULANG VIDEO (NO WM)</a>` : ''}
+          ${proxyAudioUrl ? `<a href="${proxyAudioUrl}" class="btn-dl btn-secondary">UNDUH AUDIO (MP3)</a>` : ''}
         </div>
 
         <a href="/" class="back-link">← Download URL Lain</a>
       `;
 
-      // Otomatis memicu pengunduhan file ke perangkat
+      // Trigger download otomatis menggunakan Proxy Endpoint
       if (videoUrl) {
-        triggerDownload(videoUrl, `${sanitizeFilename(data.title || 'tiktok_video')}.mp4`);
+        window.location.href = proxyVideoUrl;
       }
     });
 
     function sanitizeFilename(name) {
       return String(name).replace(/[^a-zA-Z0-9_-]/g, '_').slice(0, 40);
-    }
-
-    function triggerDownload(url, filename) {
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = filename;
-      a.target = '_blank';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
     }
   </script>
 </body>

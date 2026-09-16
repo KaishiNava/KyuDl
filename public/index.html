@@ -1,1 +1,328 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KyZX — K-Frame Downloader</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #09090b;
+      --fg: #f4f4f5;
+      --muted: #71717a;
+      --card-bg: rgba(24, 24, 27, 0.65);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --glass-blur: 16px;
+      --accent: #ffffff;
+      --accent-inverse: #000000;
+      --grid-color: rgba(255, 255, 255, 0.03);
+    }
 
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--fg);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow-x: hidden;
+      padding: 1.5rem;
+    }
+
+    /* K-Frame Grid Background */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-image: 
+        linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* K-Frame Geometric Decorations */
+    .geo-circle-1 {
+      position: fixed;
+      top: -10vw;
+      right: -10vw;
+      width: 40vw;
+      height: 40vw;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .geo-circle-2 {
+      position: fixed;
+      bottom: -15vw;
+      left: -10vw;
+      width: 50vw;
+      height: 50vw;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .geo-line {
+      position: fixed;
+      top: 0;
+      left: 15%;
+      width: 1px;
+      height: 100vh;
+      background: rgba(255, 255, 255, 0.03);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Main Floating Container */
+    .container {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 520px;
+    }
+
+    .brand-header {
+      margin-bottom: 2rem;
+      text-align: left;
+    }
+
+    .brand-tag {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .brand-tag::before {
+      content: "";
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background: var(--fg);
+      border-radius: 50%;
+    }
+
+    .brand-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--fg);
+      line-height: 1.1;
+    }
+
+    /* Floating Glass Card */
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(var(--glass-blur));
+      -webkit-backdrop-filter: blur(var(--glass-blur));
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 2.5rem;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+      transition: border-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .card:hover {
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .input-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .input-label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 1rem 1.25rem;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      color: var(--fg);
+      font-size: 0.95rem;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .input-field:focus {
+      border-color: var(--accent);
+      background: rgba(0, 0, 0, 0.6);
+      box-shadow: 0 0 0 1px var(--accent);
+    }
+
+    .input-field::placeholder {
+      color: rgba(255, 255, 255, 0.25);
+    }
+
+    .btn-action {
+      width: 100%;
+      padding: 1rem 1.5rem;
+      background: var(--accent);
+      color: var(--accent-inverse);
+      border: none;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .btn-action:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(255, 255, 255, 0.15);
+      background: #e4e4e7;
+    }
+
+    .btn-action:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .status-box {
+      margin-top: 1.25rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+      text-align: center;
+      min-height: 1.25rem;
+      transition: color 0.2s ease;
+    }
+
+    .status-box.error {
+      color: #ef4444;
+    }
+
+    .footer-note {
+      margin-top: 2rem;
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    @media (max-width: 640px) {
+      .brand-title {
+        font-size: 2rem;
+      }
+      .card {
+        padding: 1.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- K-Frame Decorative Geometry -->
+  <div class="geo-circle-1"></div>
+  <div class="geo-circle-2"></div>
+  <div class="geo-line"></div>
+
+  <div class="container">
+    <div class="brand-header">
+      <div class="brand-tag">KyZX — K-Frame Spec</div>
+      <h1 class="brand-title">TikTok Downloader</h1>
+    </div>
+
+    <div class="card">
+      <div class="input-group">
+        <label class="input-label" for="tiktokUrl">Target Video URL</label>
+        <input type="url" id="tiktokUrl" class="input-field" placeholder="https://vt.tiktok.com/..." required autocomplete="off">
+      </div>
+
+      <button onclick="processDownload()" id="btnSubmit" class="btn-action">
+        <span>PROSES & UNDUH</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+      </button>
+
+      <div id="status" class="status-box"></div>
+    </div>
+
+    <div class="footer-note">
+      K-FRAME INTERFACE — SIMPLE STRUCTURE, SUBTLE DEPTH
+    </div>
+  </div>
+
+  <script>
+    async function processDownload() {
+      const urlInput = document.getElementById('tiktokUrl').value.trim();
+      const statusDiv = document.getElementById('status');
+      const btn = document.getElementById('btnSubmit');
+
+      statusDiv.classList.remove('error');
+
+      if (!urlInput) {
+        statusDiv.classList.add('error');
+        statusDiv.innerText = "Masukkan URL TikTok terlebih dahulu.";
+        return;
+      }
+
+      statusDiv.innerText = "Sedang mengekstrak data media...";
+      btn.disabled = true;
+
+      try {
+        const response = await fetch('/api/tiktok', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ url: urlInput })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+          throw new Error(data.error || "Gagal memproses URL media.");
+        }
+
+        // Simpan metadata ke localStorage sesuai requirement
+        localStorage.setItem('kyzx_download_data', JSON.stringify(data));
+        statusDiv.innerText = "Data tersimpan! Memindahkan ke ruang unduh...";
+
+        setTimeout(() => {
+          window.location.href = '/download.html';
+        }, 800);
+
+      } catch (err) {
+        statusDiv.classList.add('error');
+        statusDiv.innerText = err.message || "Terjadi kesalahan sistem.";
+        btn.disabled = false;
+      }
+    }
+  </script>
+</body>
+</html>
